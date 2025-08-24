@@ -3,6 +3,7 @@ import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import { toast } from 'sonner';
 import { updateUserProfile } from '@/service/userService';
+import api from '../lib/axios';
 
 const API_URL = 'http://localhost:8000/api'
 const isJwtValid = (token) => {
@@ -38,28 +39,32 @@ export const useAuthStore = create(
       login: async (email, password) => {
         set({ loading: true });
         try {
-          const res = await fetch(`${API_URL}/auth/login`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password }),
-          });
+          // const res = await fetch(`${API_URL}/auth/login`, {
+          //   method: 'POST',
+          //   headers: { 'Content-Type': 'application/json' },
+          //   body: JSON.stringify({ email, password }),
+          // });
 
-          if (!res.ok) {
-            const err = await res.json().catch(() => ({ message: 'Invalid credentials' }));
-            throw new Error(err.message || 'Login failed');
-          }
+          // if (!res.ok) {
+          //   const err = await res.json().catch(() => ({ message: 'Invalid credentials' }));
+          //   throw new Error(err.message || 'Login failed');
+          // }
 
-          const data = await res.json(); // Get the entire flat response object
+          // const data = await res.json(); // Get the entire flat response object
+
+          const res = await api.post('/auth/login', { email, password });
+
+          const userData = res.data;
 
           // Manually construct the user object from the flat data
           const user = {
-            _id: data._id,
-            name: data.name,
-            email: data.email,
-            role: data.role,
+            _id: userData._id,
+            name: userData.name,
+            email: userData.email,
+            role: userData.role,
           };
           
-          const token = data.token;
+          const token = userData.token;
 
           // Set the state with the correctly structured data
           set({ token, user, isAuthenticated: true, loading: false });
@@ -73,15 +78,18 @@ export const useAuthStore = create(
       register: async (name, email, password) => {
         set({ loading: true })
         try {
-          const res = await fetch(`${API_URL}/auth/register`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email, password }),
-          })
-          if (!res.ok) {
-            const err = await res.json().catch(() => ({ message: 'Registration failed' }))
-            throw new Error(err.message || 'Registration failed')
-          }
+          // const res = await fetch(`${API_URL}/auth/register`, {
+          //   method: 'POST',
+          //   headers: { 'Content-Type': 'application/json' },
+          //   body: JSON.stringify({ name, email, password }),
+          // })
+          // if (!res.ok) {
+          //   const err = await res.json().catch(() => ({ message: 'Registration failed' }))
+          //   throw new Error(err.message || 'Registration failed')
+          // }
+
+          await api.post('/auth/register', { name, email, password });
+
           // On successful registration, we don't log the user in, just stop loading.
           set({ loading: false })
         } catch (e) {
