@@ -1,6 +1,18 @@
-# Full-Stack Web Application
+A comprehensive task management system built for PanScience Innovations as part of a full-stack developer assessment. This application demonstrates modern web development practices with a React frontend, Node.js/Express backend, JWT authentication, file upload capabilities, and containerized deployment.
 
-A comprehensive web application built with modern technologies, featuring a React frontend, Express.js backend, and multiple service integrations.
+## Introduction
+
+This project is a complete task management solution that allows users to efficiently manage tasks with advanced features including user authentication, role-based access control, document attachments, and real-time filtering. Built following industry best practices, it showcases a scalable architecture suitable for enterprise-level applications.
+
+### Key Highlights
+- **JWT-based Authentication**: Secure user registration and login system
+- **Role-based Authorization**: Admin and regular user roles with appropriate permissions
+- **Document Management**: Upload up to 3 PDF documents per task with cloud/local storage
+- **Advanced Task Operations**: CRUD operations with filtering, sorting, and pagination
+- **Responsive Design**: Modern UI built with component-based architecture
+- **Containerized Deployment**: Docker configuration for easy setup and deployment
+- **Comprehensive Testing**: Unit and integration tests with high coverage
+- **API Documentation**: Well-documented RESTful APIs
 
 ## Project Structure
 <img width="4656" height="2724" alt="diagram (1)" src="https://github.com/user-attachments/assets/cf3e6bc2-7249-4825-a965-1ffffb9adda4" />
@@ -155,3 +167,6 @@ The backend provides RESTful endpoints for:
 ## Support
 
 For support and questions, please [add contact information or issue tracking details].
+
+
+
