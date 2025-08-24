@@ -1,0 +1,36 @@
+services:
+  # Backend (Node.js + Express) service
+  backend:
+    image: prateekjaiswal16/task_backend:latest
+    build:
+      context: ./backend
+      dockerfile: DockerFile
+    container_name: backend
+    restart: always
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      - DB_URI=${DB_URI}
+      - JWT_SECRET=${JWT_SECRET}
+      - PORT=${PORT}
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+      - SUPABASE_BUCKET=${SUPABASE_BUCKET}
+
+      
+
+  # Frontend (React) service
+  frontend:
+    image: prateekjaiswal16/task_frontend:latest
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    restart: always
+    ports:
+      - "3000:80"
+    environment:
+      - MODE=${MODE}
+    depends_on:
+      - backend

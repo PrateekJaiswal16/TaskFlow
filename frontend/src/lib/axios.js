@@ -1,8 +1,10 @@
 import axios from 'axios'
 import { useAuthStore } from '@/store/useAuthStore'
 
+const BASE_URL = import.meta.env.MODE == "development" ? `${import.meta.env.VITE_API_BASE || 'http://localhost:8000'}/api` : '/api';
+
 const api = axios.create({
-  baseURL: `${import.meta.env.VITE_API_BASE || 'http://localhost:8000'}/api`,
+  baseURL: BASE_URL,
 })
 
 // always pull freshest token from Zustand (not from localStorage directly)

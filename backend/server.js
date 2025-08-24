@@ -13,6 +13,10 @@ const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const taskRoutes = require('./routes/taskRoutes');
 
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./swagger.yaml');
+
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 
@@ -28,12 +32,17 @@ const app = express();
 app.use(cors()); //Enable cross origin resource sharing
 app.use(express.json()); //Allow the server to accept JSON in request body
 // app.use(fileupload({ useTempFiles: true }));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 const PORT = process.env.PORT || 8000;
 
 app.get('/', (req,res) => {
     res.send('Task manager api is running');
+});
+
+app.get('/api/health', (req, res) => {
+  res.send({ status: 'API is running 🚀' });
 });
 
 //Use Routes
