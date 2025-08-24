@@ -68,5 +68,5 @@ jobs:
           SUPABASE_BUCKET: ${{ secrets.SUPABASE_BUCKET }}
           MODE: ${{ secrets.MODE }}
         run: |
-            docker compose pull --ignore-pull-failures --parallel
+            docker compose pull --parallel
             docker compose up --force-recreate -d
